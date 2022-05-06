@@ -1,0 +1,169 @@
+# --++--++--++--++--++--++--
+# Advertencia: Si se va a usar PlugMan para desactivar/activar el plugin, usar el comando de "load" y "unload". No usar "enable" y "disable" porque se rompe.
+# --++--++--++--++--++--++--
+
+#Determina si se va a utilizar Hologramas. (Solo si se tiene instalado el plugin "HolographicDisplays")
+use-holographicdisplays: false
+
+#Determina si se va a utilizar recompensas económicas. (Solo si se tiene instalado el plugin "Vault" y un plugin de Economía)
+use-vault: true
+
+# |---  Configuración general de DragonRewards ---|
+
+# - Determina si se va a enviar un mensaje al jugador cuando entre al servidor avisándole que le quedan recompensas. (Necesitan el permiso "dragonrewards.recordatorio.reclamar")
+recordatorio-recompensas: true
+# - Determina si se va a enviar un mensaje al jugador cuando entre al servidor avisándole qué dragones están vivos y/o cuando re-spawnean. (Necesitan el permiso "dragonrewards.recordatorio.dragon")
+recordatorio-dragon: true
+
+# - Restringe la recompensa para los que están online y le pegaron al dragón. (Para que no le peguen, se desconecten del servidor y reciban la recompensa igual)
+restringir-recompensa-online: true
+# - Restringe la recompensa para los que están en el mundo y le pegaron al dragón. (Para que no le peguen, se vayan del mundo y reciban la recompensa igual)
+restringir-recompensa-mundo: true
+
+# - Regenerar toda la vida y reiniciar asistencias del dragón después de un tiempo X determinado en "regenerar-y-reiniciar-tiempo" de que no recibe daño el dragón.
+regenerar-y-reiniciar: true
+# - En formato "(Semanas)w(Dias)d(Horas)h(Minutos)m(Segundos)s" se fija el tiempo de cuenta regresiva hasta que se reinicia las asistencias y se cura al dragón.
+#         (Por ejemplo: 1h10m5s = 1 hora, 10 minutos y 5 segundos)
+regenerar-y-reiniciar-tiempo: 30m
+
+# - Determina si se va a proteger los end crystal del mundo mientras se realiza la invocación del dragón. (Si se rompe algún cristal se cancela la invocación)
+proteger-end-crystals: true
+
+# - Determina si no se va a dejar a los jugadores realizar la invocación del dragón vanilla poniendo los end crystals. (Si tienen el permiso "dragonrewards.placeendcrystal" van a poder colocar los end crystal)
+prevenir-invocacion-manual: true
+
+# - Para desactivar/activar las partículas en los end crystal cuando se invoca un dragón.
+particulas-al-invocar: true
+# - Para desactivar/activar los rayos en los end crystal cuando se invoca un dragón.
+rayo-al-invocar: true
+
+# - Para desactivar/activar los logs. (Estos se encuentran en el archivo "log.txt")
+log: true
+
+# |--- --- --- --- --- --- --- --- --- --- --- ---|
+
+# |---   Mensajes  ---|
+# En algunos mensajes se pueden utilizar {player}, {cantidad}, {mundo}, {ultimoGolpe} y {assist}. No se aplican en todos los casos asi que ver en cada mensaje en que contexto se utilizan.
+# En cualquier mensaje se puede usar {pluginPrefix} que va a mostrar lo que dice en "plugin-prefix".
+# Se puede usar colores en hexadecimal escribiendo: {color:#XXXXXX} Donde X es el código en hexadecimal del color. (https://www.color-hex.com/)
+
+mensajes:
+  plugin-prefix: '&8[&5DragonRewards&8] ' #(Aclaración: Solo cambia el prefijo para los mensajes que se ven acá y en los dragones)
+  recordatorio-recompensas-mensaje:
+    - '{pluginPrefix}&fTienes &6&l{cantidad} &frecompensa/s para reclamar! Use: "/dragonr reclamar" para reclamar una)'
+  recordatorio-dragon-mensaje-respawn: '&7Un dragón en &6{mundo} &7va aparecer el: &6{fechaRespawn}'
+  recordatorio-dragon-mensaje-vivo: '{dragon} &festá vivo o invocándose en &6{mundo}'
+  no-permission:
+    - '&cNo tienes permiso para ejecutar ese comando!'
+  not-console-command:
+    - '&cNo se puede usar este comando desde la consola!'
+  reclamar-success:
+    - '{pluginPrefix}&aRecompensa reclamada con éxito!'
+  reclamar-left:
+    - '{pluginPrefix}&fTe quedan &6&l{cantidad} &frecompensas más para reclamar!'
+  reclamar-1-left:
+    - '{pluginPrefix}&fTe queda &6&l1 &frecompensa más para reclamar!'
+  reclamar-0-left:
+    - '{pluginPrefix}&cNo tienes mas recompensas para reclamar!'
+  dragon-kill-lasthit-not-found:
+    - '&7Alguien (De una forma no convencional) ha dado el último golpe a {dragon} &7y ha ayudado: {assist}'
+  dragon-kill-not-conventional:
+    - '{ultimoGolpe} &7ha matado solo a {dragon} &7de una forma no convencional.'
+  dragon-kill-unknown-death:
+    - '&7Ha muerto {dragon} &7en circunstancias misteriosas... ¯\_(o_O)_/¯'
+  dragon-admin-kill:
+    - '&7Un administrador le disparo un rayo laser a {dragon} &7y murió incinerado'
+  lootTable-no-space:
+    - '{pluginPrefix}&cNo tienes espacio en el inventario!'
+  lootTable-error-1:
+    - '{pluginPrefix}&cHa ocurrido un problema con la recompensa, por favor contáctese con algún administrador! (Error: 1)'
+  lootTable-error-2:
+    - '{pluginPrefix}&cHa ocurrido un problema con la recompensa, por favor contáctese con algún administrador! (Error: 2)'
+  lootTable-error-3:
+    - '{pluginPrefix}&cHa ocurrido un problema con la recompensa, por favor contáctese con algún administrador! (Error: 3)'
+  lootTable-reclamar :
+    - '{pluginPrefix}{color:#ffff00}Has recibido una recompensa! (Reclámela con /dragonr reclamar)'
+
+
+# |--- --- --- --- ---|
+
+# |  ++ Tipos de errores ++ |
+# Error 1: Ocurre si no se pueden obtener los objetos de la LootTable correctamente. (Revisar la consola para mas detalles en caso de que ocurra)
+# Error 2: Ocurre si la lista de ítems esta vacía.
+# Error 3: Ocurre si la LootTable ingresada (En la config del dragón) no existe.
+# | + + + + + + + + + + + + |
+
+# |---   Configuración por LootTable   ---|
+
+  # +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+= #
+# Nota importante: Preferiblemente no tocar nada de estas carpetas. (Usa los comandos in-game para modificar las LootTable)
+  # +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+= #
+# dinero:     -# Cantidad de dinero que se le va a dar al usuario cuando reclame la LootTable. (Solo funciona si se tiene activado el "use-vault" y está instalado "Vault" y un plugin de Economía)
+# experiencia:-# Cantidad de experiencia que se le va a dar al usuario cuando reclame la LootTable. (Si tiene una "L" al final entonces son niveles y no experiencia)
+# comandos:   -# Lista de comandos que se van a ejecutar cuando se reclame la LootTable. (Debe tener el que envía el comando "[consola]" o "[usuario]" al principio
+#               y se puede usar "{nombre}" y "{mundo}" para hacer referencia al nombre del usuario que reclame y el mundo donde se encuentra respectivamente)
+# items:      -# Es bastante peligroso cambiar algo de acá, pero si entendés como funciona hay varias cosas que se pueden cambiar, como cantidades de cada item, el lore, etc...
+
+# |--- --- --- --- --- --- --- --- --- ---|
+
+# |---   Configuración por dragón  ---|
+
+  # +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+= #
+# Nota importante: Tener en cuenta que el nombre del archivo del dragón y el nombre in-game lo identifica entre los demás dragones, es decir que NO se pueden repetir los nombres de los dragones!
+#                  (Se recomienda que el nombre in-game, sin considerar los colores, sea el mismo nombre que para el archivo para evitar confusiones)
+  # +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+= #
+
+# En cualquier mensaje se puede usar colores con '&' o con {color:#XXXXXX} donde X es el código en hexadecimal del color.
+
+# nombre-dragon:              -#Nombre del dragón que va a aparecer in-game.
+# recompensa-al-ultimo-golpe: -#Nombre del archivo de la LootTable que se le va a dar al que haga el último golpe. (Sin el .yml)
+# recompensa-asistencia:      -#Nombre del archivo de la LootTable que se le va a dar a las asistencias. (Sin el .yml)
+# boss-bar-style:             -#Estilo de la barra de vida del dragón. Estilos disponibles: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12 y SEGMENTED_20.
+# boss-bar-color:             -#Color de la barra de vida del dragón. Colores disponibles: BLUE, GREEN, PINK, PURPLE, RED, WHITE y YELLOW.
+# on-death-commands:          -#Comandos que se van a ejecutar cuando se muera el dragón.
+# on-appear-commands:         -#Comandos que se van a ejecutar cuando aparezca el dragón.
+#                             -*#* Formato de comando:
+#                                   -Al principio se coloca el que va a enviar el comando: [consola], [ug], [assist] y [todos] (Tener en cuenta que si se pone assist se va a enviar de parte de todos los assist)
+#                                   -Después se coloca el comando y los parámetros, se puede usar "{mundo}", "{ug}", "{assist}" y "{todos}" para hacer referencia a los que participaron de la pelea.
+# dragon-appear:              -#Mensaje que va a aparecer cuando aparezca el dragón.
+# dragon-kill-message:        -#Mensaje que va a aparecer cuando se mate al dragón y haya asistencias.
+# dragon-kill-message-solo:   -#Mensaje que va a aparecer cuando se mate al dragón y no haya asistencias.
+# dragon-active-power-cd:     -#Cooldown o enfriamiento en segundos entre poderes activos (Para que no se active más de un poder a la vez).
+# dragon-active-powers:       -#Lista de poderes activos del dragón. (Luego del ":" se encuentra el cooldown en segundos para que se active el poder, por ejemplo: "FireballBurst:10": luego de 10 segundos de haber sido activado se puede volver a activar)
+# dragon-passive-powers:      -#Lista de poderes pasivos del dragón.
+# atributos:                  -#Para cambiar los atributos del dragon, los valores base son los que aparecen debajo.
+  # vida-maxima: 200.0
+  # armadura: 0.0
+  # daño: 15.0
+
+# |+++ --- +++ --- +++ Poderes Activos +++ --- +++ --- +++|
+  # FireballBurst: Lanza 5 bolas de fuego hacia un jugador (una bola por segundo)
+  # Pulgas: Invoca 8 Endermites con velocidad en el marco del portal (Solo si el dragón esta posado en el portal)
+  # ThunderInstaKill: Aparecen unas partículas al rededor de todos los jugadores cercanos y luego cae un rayo que los mata si no salen del área antes de que se cierre el círculo de partículas.
+  # IceShardRain: Caen 5 cristales del cielo (un cristal cada 0.75 segundos) a un jugador que explotan, dañan y alentan a todos los jugadores cerca de la explosión.
+# |+++ --- +++ --- +++ --- --- --- --- +++ --- +++ --- +++|
+
+# |+++ --- +++ --- +++ Poderes Pasivos +++ --- +++ --- +++|
+  # HomingFireball: Las bolas de fuego del dragón van a ser seguidoras.
+  # InmuneToArrows: Lo vuelve inmune a las flechas
+  # AirSuperiority: Desactiva el vuelo y elytras de los jugadores cercanos al dragón (En un área de 32 bloques alrededor del dragón)
+# |+++ --- +++ --- +++ --- --- +++ --- +++ --- +++|
+
+# | -- Configuración por mundo (worlds.yml)-- |
+
+#NombreMundo:
+  # activo:                     -#Determina si el mundo esta activado o no. (Es decir, que si esta desactivado, no se van a poder spawnear dragones custom del plugin de ninguna manera)
+  # alias:                      -#Nombre del mundo que se va a tomar para el {mundo}
+  # mostrar-anuncio-muerte:     -#Según el valor, establece cómo se va a mostrar el anuncio por la muerte de un dragón en ese mundo.
+  # mostrar-anuncio-invocacion: -#Según el valor, establece cómo se va a mostrar el anuncio por la aparición de un dragón en ese mundo.
+  #                             -*#* Valores que pueden tomar: -2 para el servidor entero, -1 para el mundo end, 0 para desactivar, y más para que sea el radio alrededor del centro del portal del end.
+  # respawn-al-morir:           -#Determina si va a programar un dragón cuando se muera el actual. (Es decir, que cuando muera un dragón se va a esperar lo que diga en "demora-respawn" y
+  #                               después va a iniciar la invocación de algún dragon de la lista de "dragons")
+  # demora-respawn:             -#En formato "(Semanas)w(Dias)d(Horas)h(Minutos)m(Segundos)s" se fija el tiempo de cuenta regresiva hasta que se invoca a otro dragón al morir uno. (Por ejemplo:
+  #                               2w10m = 2 semanas y 10 minutos)
+  # holograma:                  -#Solo importa si se va a utilizar HolographicDisplays. Este va a aparecer encima de la torre del portal del End.
+  #    - 'Fecha de respawn:'
+  #    - '{fechaRespawn}'
+  # dragones:                   -#Lista de dragones que pueden aparecer en el mundo. (Los dragones pueden aparecer mas de una vez en esta lista para aumentar las probabilidades de que aparezcan)
+
+# |--- --- --- --- --- --- --- --- --- --- ---|

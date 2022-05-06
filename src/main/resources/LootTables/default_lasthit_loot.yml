@@ -1,0 +1,15 @@
+items:
+  '0':
+    maximo: 1
+    minimo: 1
+    probabilidad: 100
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2578
+      type: DRAGON_EGG
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: §4Huevo de dragon
+        lore:
+          - §bSolo para uso decorativo

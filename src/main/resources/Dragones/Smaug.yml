@@ -1,0 +1,15 @@
+nombre-dragon: '&cSmaug'
+recompensa-al-ultimo-golpe: default_lasthit_loot
+recompensa-asistencia: default_assist_loot
+boss-bar-style: SOLID
+boss-bar-color: PURPLE
+dragon-appear:
+  - '{pluginPrefix}&d¡Ha aparecido {dragon}&d!'
+dragon-kill-message:
+  - '{ultimoGolpe} &7ha dado el último golpe a {dragon} &7y ha ayudado: {assist}'
+dragon-kill-message-solo:
+  - '{ultimoGolpe} &7ha matado solo a {dragon}&7!'
+atributos:
+  vida-maxima: 200.0
+  armadura: 0.0
+  daño: 15.0

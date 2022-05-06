@@ -1,0 +1,16 @@
+items:
+  '0':
+    probabilidad: 100
+    minimo: 1
+    maximo: 1
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2578
+      type: WOODEN_SWORD
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: §bEscarbadientes legendario
+        lore:
+          - §6No tiene nada de especial,
+          - §6es solo un escarbadientes

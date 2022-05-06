@@ -1,0 +1,221 @@
+name: DragonRewards
+version: '1.0'
+api-version: '1.16'
+description: Give players rewards for killing the ender dragon and respawn the ender dragon
+author: Griphion
+main: me.griphion.DragonRewards.Core
+softdepend: [Multiverse-Core,HolographicDisplays]
+commands:
+  dragonrewards:
+    description: Comando base de DragonRewards
+    aliases: dragonr
+    usage: Uso /<command>
+permissions:
+  dragonrewards.*:
+    description: Le da todos los permisos del plugin
+    children:
+      dragonrewards.user: true
+      dragonrewards.admin.*: true
+      dragonrewards.editmundo.*: true
+      dragonrewards.editdragon.*: true
+      dragonrewards.editloot.*: true
+      dragonrewards.placeendcrystal: true
+      dragonrewards.help: true
+      dragonrewards.reload: true
+      dragonrewards.mundo: true
+      dragonrewards.dragon: true
+      dragonrewards.stats.otros: true
+      dragonrewards.recompensas: true
+      dragonrewards.loottable: true
+  dragonrewards.user:
+    description: Le da los permisos básicos de usuario
+    children:
+      dragonrewards.stats: true
+      dragonrewards.reclamar: true
+      dragonrewards.recordatorio.*: true
+      dragonrewards.dragones: true
+      dragonrewards.top: true
+      dragonrewards.top.kill: true
+      dragonrewards.top.assist: true
+  dragonrewards.admin.*:
+    description: Le da los permisos para todos los comandos /dragonr admin ...
+    children:
+      dragonrewards.admin: true
+      dragonrewards.admin.addrecompensa: true
+      dragonrewards.admin.remrecompensa: true
+      dragonrewards.admin.invocar: true
+      dragonrewards.admin.matar: true
+  dragonrewards.editmundo.*:
+    description: Le da los permisos para todos los comandos /dragonr editmundo ...
+    children:
+      dragonrewards.editmundo: true
+      dragonrewards.editmundo.adddragon: true
+      dragonrewards.editmundo.remdragon: true
+      dragonrewards.editmundo.toggle: true
+      dragonrewards.editmundo.setalias: true
+      dragonrewards.editmundo.setanunciomuerte: true
+      dragonrewards.editmundo.setanuncioinvocacion: true
+      dragonrewards.editmundo.togglerespawnondeath: true
+
+  dragonrewards.editdragon.*:
+    description: Le da los permisos para todos los comandos /dragonr editdragon ...
+    children:
+      dragonrewards.editdragon: true
+      dragonrewards.editdragon.delete: true
+      dragonrewards.editdragon.reload: true
+      dragonrewards.editdragon.newdragon: true
+      dragonrewards.editdragon.setname: true
+      dragonrewards.editdragon.setattribute.*: true
+  dragonrewards.recordatorio.*:
+    description: Le da los permisos para recibir todos los recordatorios
+    children:
+      dragonrewards.recordatorio.dragon: true
+      dragonrewards.recordatorio.reclamar: true
+  dragonrewards.setattribute.*:
+    description: Le da los permisos para todos los comandos /dragonr editdragon setattribute ...
+    children:
+      dragonrewards.editdragon.setattribute.vida: true
+      dragonrewards.editdragon.setattribute.armadura: true
+      dragonrewards.editdragon.setattribute.danio: true
+  dragonrewards.editloot.*:
+    description: Le da los permisos para todos los comandos /dragonr editloot ...
+    children:
+      dragonrewards.editloot: true
+      dragonrewards.editloot.comandos: true
+      dragonrewards.editloot.addcomando: true
+      dragonrewards.editloot.remcomando: true
+      dragonrewards.editloot.setexp: true
+      dragonrewards.editloot.setdinero: true
+
+  dragonrewards.placeendcrystal:
+    description: Le permite al usuario colocar end crystal cerca del portal para invocar al dragón
+    default: op
+  dragonrewards.dragon:
+    description: Le permite al usuario usar /dragonr dragon [Dragon]
+    default: op
+  dragonrewards.help:
+    description: Le permite al usuario usar /dragonr help
+    default: op
+  dragonrewards.loottable:
+    description: Le permite al usuario usar /dragonr loottable [LootTable]
+    default: op
+  dragonrewards.reload:
+    description: Le permite al usuario usar /dragonr reload
+    default: op
+  dragonrewards.mundo:
+    description: Le permite al usuario usar /dragonr mundo <MundoEnd>
+    default: op
+  dragonrewards.stats:
+    description: Le permite al usuario usar /dragonr stats
+    default: true
+  dragonrewards.stats.otros:
+    description: Le permite al usuario usar /dragonr stats [Usuario]
+    default: op
+  dragonrewards.recompensas:
+    description: Le permite al usuario usar /dragonr recompensas <Dragon>
+    default: op
+  dragonrewards.editmundo:
+    description: Le permite al usuario usar /dragonr editmundo y para usar los subcomandos de editmundo
+    default: op
+  dragonrewards.editmundo.adddragon:
+    description: Le permite al usuario usar /dragonr editmundo addDragon [MundoEnd] [Dragon]
+    default: op
+  dragonrewards.editmundo.remdragon:
+    description: Le permite al usuario usar /dragonr editmundo remDragon [MundoEnd] [Dragon]
+    default: op
+  dragonrewards.editmundo.toggle:
+    description: Le permite al usuario usar /dragonr editmundo toggle <MundoEnd>
+    default: op
+  dragonrewards.editmundo.setalias:
+    description: Le permite al usuario usar /dragonr editmundo setAlias [MundoEnd] [Alias]
+    default: op
+  dragonrewards.editmundo.setanunciomuerte:
+    description: Le permite al usuario usar /dragonr editmundo setAnuncioMuerte [MundoEnd] [Valor]
+    default: op
+  dragonrewards.editmundo.setanuncioinvocacion:
+    description: Le permite al usuario usar /dragonr editmundo setAnuncioInvocacion [MundoEnd] [Valor]
+    default: op
+  dragonrewards.editmundo.togglerespawnondeath:
+    description: Le permite al usuario usar /dragonr editmundo toggleRespawnOnDeath [MundoEnd]
+    default: op
+  dragonrewards.editdragon:
+    description: Le permite al usuario usar /dragonr editdragon y para usar los subcomandos de editdragon
+    default: op
+  dragonrewards.editdragon.reload:
+    description: Le permite al usuario usar /dragonr editdragon reload [NombreDragon]
+    default: op
+  dragonrewards.editdragon.delete:
+    description: Le permite al usuario usar /dragonr editdragon delete [NombreDragon]
+    default: op
+  dragonrewards.editdragon.newdragon:
+    description: Le permite al usuario usar /dragonr editdragon newdragon [Nombre]
+    default: op
+  dragonrewards.editdragon.setname:
+    description: Le permite al usuario usar /dragonr editdragon setname [NombreDragon] [NombreDisplay]
+    default: op
+  dragonrewards.editdragon.setattribute:
+    description: Le permite al usuario usar /dragonr editdragon setattribute
+    default: op
+  dragonrewards.editdragon.setattribute.vida:
+    description: Le permite al usuario usar /dragonr editdragon setattribute vida [NombreDragon] [valor]
+    default: op
+  dragonrewards.editdragon.setattribute.armadura:
+    description: Le permite al usuario usar /dragonr editdragon setattribute armadura [NombreDragon] [valor]
+    default: op
+  dragonrewards.editdragon.setattribute.danio:
+    description: Le permite al usuario usar /dragonr editdragon setattribute daño [NombreDragon] [valor]
+    default: op
+  dragonrewards.reclamar:
+    description: Le permite al usuario usar /dragonr reclamar
+    default: true
+  dragonrewards.top:
+    description: Le permite al usuario usar /dragonr top y para usar los subcomandos de top
+    default: op
+  dragonrewards.top.kill:
+    description: Le permite al usuario usar /dragonr top kill
+    default: op
+  dragonrewards.top.assist:
+    description: Le permite al usuario usar /dragonr top assist
+    default: op
+  dragonrewards.recordatorio.reclamar:
+    description: Le recuerda al usuario de que tiene recompensas para reclamar
+    default: true
+  dragonrewards.recordatorio.dragon:
+    description: Le recuerda al usuario qué dragones están vivos y/o cuando respawnean
+    default: true
+  dragonrewards.dragones:
+    description: Le permite al usuario usar /dragonr dragones
+    default: true
+  dragonrewards.editloot:
+    description: Le permite al usuario usar /dragonr editloot <LootTable> y para usar los subcomandos de editloot
+    default: op
+  dragonrewards.editloot.comandos:
+    description: Le permite al usuario usar /dragonr editloot [LootTable] comandos
+    default: op
+  dragonrewards.editloot.addcomando:
+    description: Le permite al usuario usar /dragonr editloot [LootTable] addcomando [Comando]
+    default: op
+  dragonrewards.editloot.remcomando:
+    description: Le permite al usuario usar /dragonr editloot [LootTable] remcomando [PosicionComando]
+    default: op
+  dragonrewards.editloot.setexp:
+    description: Le permite al usuario usar /dragonr editloot [LootTable] setexp [CantExp]
+    default: op
+  dragonrewards.editloot.setdinero:
+    description: Le permite al usuario usar /dragonr editloot [LootTable] setdinero [CantDinero]
+    default: op
+  dragonrewards.admin:
+    description: Le permite al usuario usar /dragonr admin y para usar los subcomandos de admin
+    default: op
+  dragonrewards.admin.darrecompensa:
+    description: Le permite al usuario usar /dragonr admin darrecompensa [LootTable] [Usuario/@a]
+    default: op
+  dragonrewards.admin.remrecompensas:
+    description: Le permite al usuario usar /dragonr admin remrecompensas [Usuario]
+    default: op
+  dragonrewards.admin.invocar:
+    description: Le permite al usuario usar /dragonr admin invocar [Mundo] [Dragon]
+    default: op
+  dragonrewards.admin.matar:
+    description: Le permite al usuario usar /dragonr admin matar [Mundo]
+    default: op
